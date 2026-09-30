@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PSI Assignment</title>
+    </head>
+    <body>
+        <h1>Singapore PSI - Real-Time Readings</h1>
+        <table id="psiTable" border="1">
+            <thead>
+                <tr>
+                    <th>Reading</th>
+                    <th>West</th>
+                    <th>North</th>
+                    <th>East</th>
+                    <th>South</th>
+                    <th>Central</th>
+                </tr>
+            </thead>
+            <tbody id="psiBody"></tbody>
+        </table>
+        <script>
+            fetch("https://api-open.data.gov.sg/v2/real-time/api/psi")
+            .then(response => response.json())
+            .then(data => {
+                const readings = data.data.items[0].readings;
+const regions = ["west", "north", "east", "south", "central"];
+const tableBody = document.getElementById("psiBody");
+
+for (const readingName in readings) {
+  const row = document.createElement("tr");
+
+  const nameCell = document.createElement("td");
+  nameCell.textContent = readingName;
+  row.appendChild(nameCell);
+
+  for (const region of regions) {
+    const cell = document.createElement("td");
+    cell.textContent = readings[readingName][region];
+    row.appendChild(cell);
+  }
+
+  tableBody.appendChild(row);
+};
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        </script>
+    </body>
+</html>
