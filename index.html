@@ -1,50 +1,36 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>PSI Assignment</title>
-    </head>
-    <body>
-        <h1>Singapore PSI - Real-Time Readings</h1>
-        <table id="psiTable" border="1">
-            <thead>
-                <tr>
-                    <th>Reading</th>
-                    <th>West</th>
-                    <th>North</th>
-                    <th>East</th>
-                    <th>South</th>
-                    <th>Central</th>
-                </tr>
-            </thead>
-            <tbody id="psiBody"></tbody>
-        </table>
-        <script>
-            fetch("https://api-open.data.gov.sg/v2/real-time/api/psi")
-            .then(response => response.json())
-            .then(data => {
-                const readings = data.data.items[0].readings;
-const regions = ["west", "north", "east", "south", "central"];
-const tableBody = document.getElementById("psiBody");
-
-for (const readingName in readings) {
-  const row = document.createElement("tr");
-
-  const nameCell = document.createElement("td");
-  nameCell.textContent = readingName;
-  row.appendChild(nameCell);
-
-  for (const region of regions) {
-    const cell = document.createElement("td");
-    cell.textContent = readings[readingName][region];
-    row.appendChild(cell);
-  }
-
-  tableBody.appendChild(row);
-};
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
-        </script>
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <title>PSI Readings Table</title>
+</head>
+<body>
+  <h1>PSI Readings by Region</h1>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Central</th>
+        <th>West</th>
+        <th>East</th>
+        <th>North</th>
+        <th>South</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>o3_sub_index</td><td>30</td><td>17</td><td>26</td><td>41</td><td>21</td></tr>
+      <tr><td>pm10_twenty_four_hourly</td><td>106</td><td>110</td><td>95</td><td>77</td><td>73</td></tr>
+      <tr><td>pm10_sub_index</td><td>78</td><td>80</td><td>73</td><td>64</td><td>62</td></tr>
+      <tr><td>co_sub_index</td><td>9</td><td>8</td><td>7</td><td>10</td><td>9</td></tr>
+      <tr><td>pm25_twenty_four_hourly</td><td>80</td><td>77</td><td>62</td><td>55</td><td>54</td></tr>
+      <tr><td>so2_sub_index</td><td>4</td><td>5</td><td>3</td><td>4</td><td>3</td></tr>
+      <tr><td>co_eight_hour_max</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>no2_one_hour_max</td><td>23</td><td>21</td><td>10</td><td>13</td><td>16</td></tr>
+      <tr><td>so2_twenty_four_hourly</td><td>6</td><td>7</td><td>5</td><td>6</td><td>5</td></tr>
+      <tr><td>pm25_sub_index</td><td>126</td><td>123</td><td>107</td><td>100</td><td>98</td></tr>
+      <tr><td>psi_twenty_four_hourly</td><td>126</td><td>123</td><td>107</td><td>100</td><td>98</td></tr>
+      <tr><td>o3_eight_hour_max</td><td>70</td><td>40</td><td>60</td><td>97</td><td>49</td></tr>
+    </tbody>
+  </table>
+</body>
 </html>
